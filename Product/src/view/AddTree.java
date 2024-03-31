@@ -37,8 +37,12 @@ public class AddTree extends javax.swing.JFrame {
         doneButton = new javax.swing.JButton();
         getImageButton = new javax.swing.JButton();
         checkBox = new javax.swing.JCheckBox();
+        exitButton = new javax.swing.JButton();
+
+        fileChoose.setCurrentDirectory(new java.io.File("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image"));
 
         setTitle("ProPlantGuard");
+        setIconImage(new ClassRendered().icon.getImage());
 
         jLabel1.setText("1. Tên cây");
 
@@ -68,6 +72,8 @@ public class AddTree extends javax.swing.JFrame {
         usesField.setRows(5);
         jScrollPane3.setViewportView(usesField);
 
+        doneButton.setBackground(new java.awt.Color(0, 153, 51));
+        doneButton.setForeground(new java.awt.Color(0, 0, 0));
         doneButton.setText("Done");
         doneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,8 +81,7 @@ public class AddTree extends javax.swing.JFrame {
             }
         });
 
-        getImageButton.setText("...");
-        getImageButton.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        getImageButton.setText("Click!");
         getImageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 getImageButtonActionPerformed(evt);
@@ -84,9 +89,13 @@ public class AddTree extends javax.swing.JFrame {
         });
 
         checkBox.setEnabled(false);
-        checkBox.addActionListener(new java.awt.event.ActionListener() {
+
+        exitButton.setBackground(new java.awt.Color(255, 0, 0));
+        exitButton.setForeground(new java.awt.Color(0, 0, 0));
+        exitButton.setText("Exit");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxActionPerformed(evt);
+                exitButtonActionPerformed(evt);
             }
         });
 
@@ -112,12 +121,14 @@ public class AddTree extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(getImageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
+                                .addComponent(getImageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkBox))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(267, 267, 267)
-                        .addComponent(doneButton)))
+                        .addGap(195, 195, 195)
+                        .addComponent(doneButton)
+                        .addGap(92, 92, 92)
+                        .addComponent(exitButton)))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -149,14 +160,14 @@ public class AddTree extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(checkBox, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel4))))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(getImageButton, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)))
+                                    .addComponent(jLabel4)))
+                            .addComponent(getImageButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(doneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(doneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
         );
 
@@ -172,19 +183,19 @@ public class AddTree extends javax.swing.JFrame {
         Tree newTree = new Tree(name, properties, plantTree, imagePath, uses);
         AddNewTree add = new AddNewTree();
         add.AddNewTree(newTree, nameFile);
-        if(nameFile == "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\FLOWER.txt"){
+        if(nameFile == "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\FLOWER.txt"){
             ListFlower flower = new ListFlower();
-            flower.addRow();
+            flower.showTable();
             flower.setVisible(true);
         }
-        else if(nameFile == "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\FRUIT.txt"){
+        else if(nameFile == "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\FRUIT.txt"){
             ListFruit fruit = new ListFruit();
-            fruit.addRow();
+            fruit.showTable();
             fruit.setVisible(true);
         }
-        else if(nameFile == "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\VEGETABLE.txt"){
+        else if(nameFile == "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\VEGETABLE.txt"){
             ListVegetable veget = new ListVegetable();
-            veget.addRow();
+            veget.showTable();
             veget.setVisible(true);
         }
         this.dispose();
@@ -195,7 +206,7 @@ public class AddTree extends javax.swing.JFrame {
     }//GEN-LAST:event_nameFieldActionPerformed
 
     private void getImageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getImageButtonActionPerformed
-        JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image");
         int returnValue = fileChooser.showOpenDialog(this);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
@@ -205,9 +216,24 @@ public class AddTree extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_getImageButtonActionPerformed
 
-    private void checkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkBoxActionPerformed
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+        if(nameFile == "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\FLOWER.txt"){
+            ListFlower flower = new ListFlower();
+            flower.showTable();
+            flower.setVisible(true);
+        }
+        else if(nameFile == "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\FRUIT.txt"){
+            ListFruit fruit = new ListFruit();
+            fruit.showTable();
+            fruit.setVisible(true);
+        }
+        else if(nameFile == "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\VEGETABLE.txt"){
+            ListVegetable veget = new ListVegetable();
+            veget.showTable();
+            veget.setVisible(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_exitButtonActionPerformed
 
     public static void main(String args[]) {
  
@@ -223,6 +249,7 @@ public class AddTree extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JCheckBox checkBox;
     public javax.swing.JButton doneButton;
+    public javax.swing.JButton exitButton;
     public javax.swing.JFileChooser fileChoose;
     public javax.swing.JButton getImageButton;
     private javax.swing.JLabel jLabel1;

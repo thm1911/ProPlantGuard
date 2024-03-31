@@ -1,11 +1,6 @@
-package Controller;
 
-
-import Model.Tree;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,22 +51,17 @@ public class VegetableFile {
         listVegetable.add(veget1);
         listVegetable.add(veget2);
         listVegetable.add(veget3);
-        
+        String filePath = "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\VEGETABLE.txt";
+        FileWriter writer = null;
         try {
-            FileOutputStream fos = new FileOutputStream("VEGETABLE.DAT");
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            
-            oos.writeObject(listVegetable);
-            oos.close();
-            fos.close();
-            
-            
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(VegetableFile.class.getName()).log(Level.SEVERE, null, ex);
+            writer = new FileWriter(filePath, true);
+              for (Tree tree : listVegetable) {
+                writer.write(tree.getName() + "\n" + tree.getProperties() + "\n"+ tree.getPlantTree() + "\n" + tree.getImagePath() + "\n" + tree.getUses()+"\n");
+            }
+            writer.close();
         } catch (IOException ex) {
             Logger.getLogger(VegetableFile.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-                
     }
 }

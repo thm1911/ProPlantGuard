@@ -4,6 +4,7 @@ package view;
 import Model.Tree;
 import java.awt.Component;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -18,11 +19,6 @@ import java.util.logging.Logger;
 import static javax.management.Query.value;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
@@ -30,55 +26,16 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import view.Homepage;
 public class ListFruit extends javax.swing.JFrame {
-    public String nameFile = "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\FRUIT.txt";
-    public ArrayList<Tree> fruit = new ArrayList<>();
-    static class ButtonRenderer extends JButton implements TableCellRenderer {
-            public ButtonRenderer() {
-                setOpaque(true);
-            }
-
-            @Override
-             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                 setText((value == null) ? "" : value.toString());
-                 return this;
-             }
-        }
-
-    static class ButtonEditor extends DefaultCellEditor {
-        public JButton button;
-        public int rowIndex;
-  
-        public ButtonEditor(ArrayList<Tree> list, JTextField txt, String nameFile) {
-            super(txt);
-            button = new JButton();
-            button.addActionListener(new java.awt.event.ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Information infor = new Information(list, rowIndex,nameFile);
-                    infor.setVisible(true);
-                }
-            });
-            
-        }
-          
-        @Override
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            button.setText((value == null) ? "" : value.toString());
-            rowIndex = row;
-            return button;
-        }
-
-        @Override
-        public Object getCellEditorValue() {
-            return button.getText();
-        }
-    }
+    public String nameFile = "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\FRUIT.txt";
     public ListFruit() {
         initComponents();
+        Homepage home = new Homepage();
+        home.Edit(homeItem, flowerItem, fruitItem, vegetableItem, searchItem);
+        EditAddTree();
     }
     
-    public void addRow(){
-        
+    public void showTable(){
+        ArrayList<Tree> fruit = new ArrayList<>();
         DefaultTableModel model = (DefaultTableModel)fruitTable.getModel();
         FileReader reader = null;
         Tree currentTree = null;
@@ -101,13 +58,16 @@ public class ListFruit extends javax.swing.JFrame {
             Logger.getLogger(ListFruit.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(int i = 0; i< fruit.size();i++){
-            Object[] newRow = {fruit.get(i).getName(),"Chi tiết"};
+            Object[] newRow = {fruit.get(i).getName(),"Chi tiết"," "};
             model.addRow(newRow);
-            TableColumn column = fruitTable.getColumnModel().getColumn(1);
-            ListFlower.ButtonEditor buttonEditor = new ListFlower.ButtonEditor(fruit, new JTextField(), nameFile);
-            column.setCellEditor(buttonEditor);
-            column.setCellRenderer(new ListFruit.ButtonRenderer());
             
+            TableColumn column2 = fruitTable.getColumnModel().getColumn(1);
+            column2.setCellEditor(new ClassRendered.ButtonEditor(fruit, new JTextField(), nameFile));
+            column2.setCellRenderer(new ClassRendered.ButtonRenderer());
+            
+            TableColumn column3 = fruitTable.getColumnModel().getColumn(2);
+            column3.setCellEditor(new ClassRendered.CheckBoxEditor(model, fruit, new JTextField(), nameFile));
+            column3.setCellRenderer(new ClassRendered.CheckBoxRendered());
         }
     }
     @SuppressWarnings("unchecked")
@@ -120,23 +80,39 @@ public class ListFruit extends javax.swing.JFrame {
         fruitTable = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
-        homeButton = new javax.swing.JButton();
-        addFruit = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        homeItem = new javax.swing.JMenuItem();
+        flowerItem = new javax.swing.JMenuItem();
+        fruitItem = new javax.swing.JMenuItem();
+        vegetableItem = new javax.swing.JMenuItem();
+        addTreeMenu = new javax.swing.JMenu();
+        addTreeItem = new javax.swing.JMenuItem();
+        searchItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ProPlanGuard");
+        setIconImage(new ClassRendered().icon.getImage());
 
         fruitTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tên", "Thông tin chi tiết"
+                "Tên", "Thông tin chi tiết", "Xóa cây"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, true
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -166,65 +142,127 @@ public class ListFruit extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jPanel4);
 
-        homeButton.setText("Trang chủ");
-        homeButton.setAlignmentX(0.5F);
-        homeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                homeButtonActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel1.setText("FRUIT");
 
-        addFruit.setText("+ Thêm cây");
-        addFruit.addActionListener(new java.awt.event.ActionListener() {
+        jMenu1.setText("View");
+
+        homeItem.setText("Home");
+        homeItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addFruitActionPerformed(evt);
+                homeItemActionPerformed(evt);
             }
         });
+        jMenu1.add(homeItem);
+
+        flowerItem.setText("Flower");
+        flowerItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                flowerItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(flowerItem);
+
+        fruitItem.setText("Fruit");
+        fruitItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fruitItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(fruitItem);
+
+        vegetableItem.setText("Vegetable");
+        vegetableItem.setToolTipText("");
+        vegetableItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                vegetableItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(vegetableItem);
+
+        jMenuBar1.add(jMenu1);
+
+        addTreeMenu.setText("Edit");
+
+        addTreeItem.setText("AddTree");
+        addTreeItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addTreeItemActionPerformed(evt);
+            }
+        });
+        addTreeMenu.add(addTreeItem);
+
+        searchItem.setText("Tìm kiếm");
+        addTreeMenu.add(searchItem);
+
+        jMenuBar1.add(addTreeMenu);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
-                .addComponent(addFruit)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(61, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addFruit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                .addGap(75, 75, 75))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void homeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeButtonActionPerformed
+    public void EditAddTree(){
+        ImageIcon addTreeImage = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\kisspng-computer-icons-clip-art-plus-sign-5b32d918dd6a99.8147865815300590329069.jpg");
+        Image addTreeResize =addTreeImage.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+        addTreeItem.setIcon(new ImageIcon(addTreeResize));
+    }
+    private void homeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeItemActionPerformed
         Homepage home = new Homepage();
         home.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_homeButtonActionPerformed
+    }//GEN-LAST:event_homeItemActionPerformed
 
-    private void addFruitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFruitActionPerformed
+    private void flowerItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flowerItemActionPerformed
+        ListFlower flower = new ListFlower();
+        flower.showTable();
+        flower.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_flowerItemActionPerformed
+
+    private void fruitItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fruitItemActionPerformed
+        ListFruit fruit = new ListFruit();
+        fruit.showTable();
+        fruit.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_fruitItemActionPerformed
+
+    private void vegetableItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vegetableItemActionPerformed
+        ListVegetable veget = new ListVegetable();
+        veget.showTable();
+        veget.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_vegetableItemActionPerformed
+
+    private void addTreeItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTreeItemActionPerformed
         AddTree add = new AddTree();
         add.GetNameFile(nameFile);
         add.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_addFruitActionPerformed
-
+    }//GEN-LAST:event_addTreeItemActionPerformed
+                                               
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -234,14 +272,22 @@ public class ListFruit extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addFruit;
+    public javax.swing.JMenuItem addTreeItem;
+    public javax.swing.JMenu addTreeMenu;
+    public javax.swing.JMenuItem flowerItem;
+    public javax.swing.JMenuItem fruitItem;
     public javax.swing.JTable fruitTable;
-    private javax.swing.JButton homeButton;
+    public javax.swing.JMenuItem homeItem;
     private javax.swing.JEditorPane jEditorPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JScrollPane jScrollPane3;
+    public javax.swing.JMenuItem searchItem;
+    public javax.swing.JMenuItem vegetableItem;
     // End of variables declaration//GEN-END:variables
 
     private static class DefautCellEditor {
