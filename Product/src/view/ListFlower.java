@@ -18,15 +18,14 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import view.ClassRendered.ButtonEditor;
-import view.ClassRendered.CheckBoxEditor;
+import view.ClassRendered;
 
 public class ListFlower extends javax.swing.JFrame {
     public String nameFile = "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\FLOWER.txt";
     public ListFlower() {
         initComponents();
         Homepage home = new Homepage();
-        home.Edit(homeItem, flowerItem, fruitItem, vegetableItem, searchItem);
+        home.Edit(homeItem, flowerItem, fruitItem, vegetableItem);
         EditAddTree();
     }
  
@@ -49,31 +48,24 @@ public class ListFlower extends javax.swing.JFrame {
         vegetableItem = new javax.swing.JMenuItem();
         addTreeMenu = new javax.swing.JMenu();
         addTreeItem = new javax.swing.JMenuItem();
-        searchItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ProPlanGuard");
         setIconImage(new ClassRendered().icon.getImage());
         setLocation(new java.awt.Point(500, 500));
 
+        flowerTable.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         flowerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tên", "Thông tin chi tiết", "Xóa cây"
+                "Tên", "Thông tin chi tiết", "Thứ tự trong danh sách", "Xóa cây"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, true, false, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -147,16 +139,13 @@ public class ListFlower extends javax.swing.JFrame {
 
         addTreeMenu.setText("Edit");
 
-        addTreeItem.setText("AddTree");
+        addTreeItem.setText("Thêm cây");
         addTreeItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addTreeItemActionPerformed(evt);
             }
         });
         addTreeMenu.add(addTreeItem);
-
-        searchItem.setText("Tìm kiếm");
-        addTreeMenu.add(searchItem);
 
         jMenuBar1.add(addTreeMenu);
 
@@ -211,18 +200,18 @@ public class ListFlower extends javax.swing.JFrame {
             Logger.getLogger(ListFlower.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(int i = 0; i< flower.size();i++){
-            Object[] newRow = {flower.get(i).getName(),"Chi tiết", " "};
+            Object[] newRow = {flower.get(i).getName(),"Chi tiết", i, "Xóa"};
             model.addRow(newRow);
-            
-            TableColumn column2 = flowerTable.getColumnModel().getColumn(1);
-            column2.setCellEditor(new ButtonEditor(flower, new JTextField(), nameFile));
-            column2.setCellRenderer(new ClassRendered.ButtonRenderer());
-            
-            TableColumn column3 = flowerTable.getColumnModel().getColumn(2);
-            column3.setCellEditor(new CheckBoxEditor(model,flower, new JTextField(),nameFile));
-            column3.setCellRenderer(new ClassRendered.CheckBoxRendered());
         }
+        TableColumn column2 = flowerTable.getColumnModel().getColumn(1);
+        column2.setCellEditor(new ClassRendered.ButtonEditor(flower, new JTextField(), nameFile));
+        column2.setCellRenderer(new ClassRendered.ButtonRenderer());
+
+        TableColumn column3 = flowerTable.getColumnModel().getColumn(3);
+        column3.setCellEditor(new ClassRendered.CheckBoxEditor(model, flower, new JTextField(), nameFile));
+        column3.setCellRenderer(new ClassRendered.CheckBoxRendered());
     }    
+    
     public void EditAddTree(){
         ImageIcon addTreeImage = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\kisspng-computer-icons-clip-art-plus-sign-5b32d918dd6a99.8147865815300590329069.jpg");
         Image addTreeResize = addTreeImage.getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
@@ -287,7 +276,6 @@ public class ListFlower extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JScrollPane jScrollPane3;
-    public javax.swing.JMenuItem searchItem;
     public javax.swing.JMenuItem vegetableItem;
     // End of variables declaration//GEN-END:variables
 }

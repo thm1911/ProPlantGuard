@@ -13,11 +13,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 public class ClassRendered {
     public static ImageIcon icon = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\plant-icon-png-10.png");
-   
+    public static ImageIcon iconNotice = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\sign-warning-icon-png-7.png");
     static class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() {
             setOpaque(true);
@@ -50,7 +51,11 @@ public class ClassRendered {
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
             button.setText((value == null) ? "" : value.toString());
-            rowIndex = row;
+            int tmp = 0;
+            if(table.getValueAt(row, 2) instanceof Integer) tmp = (int)table.getValueAt(row, 2);
+            else if(table.getValueAt(row, 2 )instanceof String)  tmp = Integer.parseInt((String) table.getValueAt(row, 2));
+           
+            rowIndex = tmp;
             return button;
         }
         
@@ -104,4 +109,6 @@ public class ClassRendered {
             return checkBox.getText();
         }
     }
+
+
 }

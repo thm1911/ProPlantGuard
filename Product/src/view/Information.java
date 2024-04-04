@@ -63,11 +63,15 @@ public class Information extends javax.swing.JFrame {
         propertiesField.setLineWrap(true);
         propertiesField.setRows(5);
         propertiesField.setWrapStyleWord(true);
+        propertiesField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        propertiesField.setEnabled(false);
         jScrollPane1.setViewportView(propertiesField);
 
         nameField.setEditable(false);
         nameField.setColumns(5);
         nameField.setRows(1);
+        nameField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        nameField.setEnabled(false);
         jScrollPane2.setViewportView(nameField);
 
         jLabel3.setText("3. Cách chăm sóc");
@@ -77,6 +81,8 @@ public class Information extends javax.swing.JFrame {
         plantTreeField.setLineWrap(true);
         plantTreeField.setRows(5);
         plantTreeField.setWrapStyleWord(true);
+        plantTreeField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        plantTreeField.setEnabled(false);
         jScrollPane3.setViewportView(plantTreeField);
 
         jLabel4.setText("4. Công dụng");
@@ -86,6 +92,8 @@ public class Information extends javax.swing.JFrame {
         usesField.setLineWrap(true);
         usesField.setRows(4);
         usesField.setWrapStyleWord(true);
+        usesField.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        usesField.setEnabled(false);
         jScrollPane4.setViewportView(usesField);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

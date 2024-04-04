@@ -30,7 +30,7 @@ public class ListVegetable extends javax.swing.JFrame {
     public ListVegetable() {
         initComponents();
         Homepage home = new Homepage();
-        home.Edit(homeItem, flowerItem, fruitItem, vegetableItem, searchItem);
+        home.Edit(homeItem, flowerItem, fruitItem, vegetableItem);
         EditAddTree();
     }
 
@@ -58,7 +58,6 @@ public class ListVegetable extends javax.swing.JFrame {
         vegetableItem = new javax.swing.JMenuItem();
         addTreeMenu = new javax.swing.JMenu();
         addTreeItem = new javax.swing.JMenuItem();
-        searchItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ProPlanGuard");
@@ -69,19 +68,12 @@ public class ListVegetable extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tên", "Thông tin chi tiết", "Xóa cây"
+                "Tên", "Thông tin chi tiết", "Thứ tự trong danh sách", "Xóa cây"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, true, false, true
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -128,6 +120,11 @@ public class ListVegetable extends javax.swing.JFrame {
         jMenu1.add(homeItem);
 
         flowerItem.setText("Flower");
+        flowerItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                flowerItemActionPerformed(evt);
+            }
+        });
         jMenu1.add(flowerItem);
 
         fruitItem.setText("Fruit");
@@ -150,16 +147,13 @@ public class ListVegetable extends javax.swing.JFrame {
 
         addTreeMenu.setText("Edit");
 
-        addTreeItem.setText("AddTree");
+        addTreeItem.setText("Thêm cây");
         addTreeItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addTreeItemActionPerformed(evt);
             }
         });
         addTreeMenu.add(addTreeItem);
-
-        searchItem.setText("Tìm kiếm");
-        addTreeMenu.add(searchItem);
 
         jMenuBar1.add(addTreeMenu);
 
@@ -213,19 +207,18 @@ public class ListVegetable extends javax.swing.JFrame {
             Logger.getLogger(ListVegetable.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(int i = 0; i< veget.size();i++){
-            Object[] newRow = {veget.get(i).getName(),"Chi tiết"," "};
+            Object[] newRow = {veget.get(i).getName(),"Chi tiết",i, "Xóa"};
             model.addRow(newRow);
-            
             TableColumn column2 = vegetTable.getColumnModel().getColumn(1);
-            column2.setCellEditor(new ClassRendered.ButtonEditor(veget, new JTextField(), nameFile));
-            column2.setCellRenderer(new ClassRendered.ButtonRenderer());
-            
-            TableColumn column3 = vegetTable.getColumnModel().getColumn(2);
-            column3.setCellEditor(new ClassRendered.CheckBoxEditor(model, veget, new JTextField(), nameFile));
-            column3.setCellRenderer(new ClassRendered.CheckBoxRendered());
-            
+        column2.setCellEditor(new ClassRendered.ButtonEditor(veget, new JTextField(), nameFile));
+        column2.setCellRenderer(new ClassRendered.ButtonRenderer());
+
+        TableColumn column3 = vegetTable.getColumnModel().getColumn(3);
+        column3.setCellEditor(new ClassRendered.CheckBoxEditor(model, veget, new JTextField(), nameFile));
+        column3.setCellRenderer(new ClassRendered.CheckBoxRendered());
         }
         
+
     }
     private void fruitItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fruitItemActionPerformed
         ListFruit fruit = new ListFruit();
@@ -253,6 +246,13 @@ public class ListVegetable extends javax.swing.JFrame {
         add.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_addTreeItemActionPerformed
+
+    private void flowerItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flowerItemActionPerformed
+        ListFlower flower = new ListFlower();
+        flower.showTable();
+        flower.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_flowerItemActionPerformed
                                          
     public static void main(String args[]) {
        
@@ -277,7 +277,6 @@ public class ListVegetable extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JScrollPane jScrollPane3;
-    public javax.swing.JMenuItem searchItem;
     public javax.swing.JTable vegetTable;
     public javax.swing.JMenuItem vegetableItem;
     // End of variables declaration//GEN-END:variables
