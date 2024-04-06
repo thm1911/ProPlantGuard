@@ -26,9 +26,14 @@ import view.Homepage;
 
 public class ListVegetable extends javax.swing.JFrame {
     public String nameFile = "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\VEGETABLE.txt";
-
+    public ListVegetable currentFrame;
     public ListVegetable() {
         initComponents();
+        currentFrame = this;
+        int widthBG = backgroundLabel.getWidth();
+        int heightBG = backgroundLabel.getHeight();
+        Image bg = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\post-thumb-rau-mauuu.jpg").getImage().getScaledInstance(widthBG, heightBG, Image.SCALE_SMOOTH);
+        backgroundLabel.setIcon(new ImageIcon(bg));
         Homepage home = new Homepage();
         home.Edit(homeItem, flowerItem, fruitItem, vegetableItem);
         EditAddTree();
@@ -43,13 +48,12 @@ public class ListVegetable extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToggleButton1 = new javax.swing.JToggleButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         vegetTable = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
-        jLabel1 = new javax.swing.JLabel();
+        backgroundLabel = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         homeItem = new javax.swing.JMenuItem();
@@ -59,16 +63,22 @@ public class ListVegetable extends javax.swing.JFrame {
         addTreeMenu = new javax.swing.JMenu();
         addTreeItem = new javax.swing.JMenuItem();
 
+        jToggleButton1.setText("jToggleButton1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ProPlanGuard");
+        setBackground(new java.awt.Color(255, 255, 255));
         setIconImage(new ClassRendered().icon.getImage());
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        vegetTable.setBackground(new java.awt.Color(255, 255, 255));
         vegetTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tên", "Thông tin chi tiết", "Thứ tự trong danh sách", "Xóa cây"
+                "Tên", "Thông tin", "Id", "Xóa cây"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -80,38 +90,42 @@ public class ListVegetable extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(vegetTable);
-
-        jScrollPane1.setViewportView(jEditorPane1);
+        if (vegetTable.getColumnModel().getColumnCount() > 0) {
+            vegetTable.getColumnModel().getColumn(0).setResizable(false);
+            vegetTable.getColumnModel().getColumn(1).setResizable(false);
+            vegetTable.getColumnModel().getColumn(2).setResizable(false);
+            vegetTable.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
         );
 
         jScrollPane2.setViewportView(jPanel4);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 153, 51));
-        jLabel1.setText("VEGETABLE");
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 58, 521, 350));
+        getContentPane().add(backgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 460));
 
+        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jMenu1.setBackground(new java.awt.Color(204, 255, 204));
+        jMenu1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jMenu1.setText("View");
+        jMenu1.setOpaque(true);
 
+        homeItem.setBackground(new java.awt.Color(255, 255, 255));
         homeItem.setText("Home");
+        homeItem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        homeItem.setOpaque(true);
         homeItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 homeItemActionPerformed(evt);
@@ -119,7 +133,10 @@ public class ListVegetable extends javax.swing.JFrame {
         });
         jMenu1.add(homeItem);
 
+        flowerItem.setBackground(new java.awt.Color(255, 255, 255));
         flowerItem.setText("Flower");
+        flowerItem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        flowerItem.setOpaque(true);
         flowerItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 flowerItemActionPerformed(evt);
@@ -127,7 +144,10 @@ public class ListVegetable extends javax.swing.JFrame {
         });
         jMenu1.add(flowerItem);
 
+        fruitItem.setBackground(new java.awt.Color(255, 255, 255));
         fruitItem.setText("Fruit");
+        fruitItem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        fruitItem.setOpaque(true);
         fruitItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fruitItemActionPerformed(evt);
@@ -135,7 +155,10 @@ public class ListVegetable extends javax.swing.JFrame {
         });
         jMenu1.add(fruitItem);
 
+        vegetableItem.setBackground(new java.awt.Color(255, 255, 255));
         vegetableItem.setText("Vegetable");
+        vegetableItem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        vegetableItem.setOpaque(true);
         vegetableItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vegetableItemActionPerformed(evt);
@@ -145,9 +168,15 @@ public class ListVegetable extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        addTreeMenu.setBackground(new java.awt.Color(255, 204, 204));
+        addTreeMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         addTreeMenu.setText("Edit");
+        addTreeMenu.setOpaque(true);
 
+        addTreeItem.setBackground(new java.awt.Color(255, 255, 255));
         addTreeItem.setText("Thêm cây");
+        addTreeItem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        addTreeItem.setOpaque(true);
         addTreeItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addTreeItemActionPerformed(evt);
@@ -158,27 +187,6 @@ public class ListVegetable extends javax.swing.JFrame {
         jMenuBar1.add(addTreeMenu);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                .addGap(76, 76, 76))
-        );
 
         pack();
         setLocationRelativeTo(null);
@@ -214,8 +222,8 @@ public class ListVegetable extends javax.swing.JFrame {
         column2.setCellRenderer(new ClassRendered.ButtonRenderer());
 
         TableColumn column3 = vegetTable.getColumnModel().getColumn(3);
-        column3.setCellEditor(new ClassRendered.CheckBoxEditor(model, veget, new JTextField(), nameFile));
-        column3.setCellRenderer(new ClassRendered.CheckBoxRendered());
+        column3.setCellEditor(new ClassRendered. ButtonDelete(model, veget, new JTextField(), nameFile, currentFrame));
+        column3.setCellRenderer(new ClassRendered.ButtonRenderer());
         }
         
 
@@ -254,30 +262,21 @@ public class ListVegetable extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_flowerItemActionPerformed
                                          
-    public static void main(String args[]) {
-       
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ListVegetable().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JMenuItem addTreeItem;
     public javax.swing.JMenu addTreeMenu;
+    public javax.swing.JLabel backgroundLabel;
     public javax.swing.JMenuItem flowerItem;
     public javax.swing.JMenuItem fruitItem;
     public javax.swing.JMenuItem homeItem;
-    private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    public javax.swing.JScrollPane jScrollPane3;
-    public javax.swing.JTable vegetTable;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTable vegetTable;
     public javax.swing.JMenuItem vegetableItem;
     // End of variables declaration//GEN-END:variables
 }

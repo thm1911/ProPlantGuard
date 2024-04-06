@@ -4,7 +4,7 @@ import com.sun.jdi.AbsentInformationException;
 import java.io.Serializable;
 import javax.swing.JTable;
 
-public class Tree implements Serializable{
+public class Tree{
     public Tree(){
         
     }

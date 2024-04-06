@@ -3,6 +3,7 @@ package view;
 
 import Controller.DeleteTree;
 import Model.Tree;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -17,11 +19,18 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
 public class ClassRendered {
-    public static ImageIcon icon = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\plant-icon-png-10.png");
+    public static ImageIcon icon = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\plant-icon-png-10-removebg-preview.png");
     public static ImageIcon iconNotice = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\sign-warning-icon-png-7.png");
+    
+     
+    public static String flowerFile = "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\FLOWER.txt";
+    public static String fruitFile = "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\FRUIT.txt";
+    public static String vegetFile = "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\VEGETABLE.txt";
+    
     static class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() {
             setOpaque(true);
+            setBackground(Color.WHITE);
         }
        
         @Override
@@ -65,6 +74,59 @@ public class ClassRendered {
         }
     }
     
+    static class ButtonDelete extends DefaultCellEditor {
+        public JButton button;
+        public int rowIndex;
+  
+        public ButtonDelete(DefaultTableModel model,ArrayList<Tree> list,JTextField txt, String nameFile, JFrame currentFrame) {
+            super(txt);
+            button = new JButton();
+            button.addActionListener(new java.awt.event.ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    model.removeRow(rowIndex);
+                    DeleteTree delete = new DeleteTree();
+                    delete.DeleteTree(rowIndex, list, nameFile);
+                    
+                    if(nameFile.equals(flowerFile)){
+                        currentFrame.setVisible(false);
+                        ListFlower flower = new ListFlower();
+                        flower.showTable();
+                        flower.setVisible(true);
+                    }
+                    else if(nameFile.equals(fruitFile)){
+                        currentFrame.setVisible(false);
+                        ListFruit fruit = new ListFruit();
+                        fruit.showTable();
+                        fruit.setVisible(true);
+                    }
+                    else if(nameFile.equals(vegetFile)){
+                        currentFrame.setVisible(false);
+                        ListVegetable veget = new ListVegetable();
+                        veget.showTable();
+                        veget.setVisible(true);
+                    }
+                }
+            });
+            
+        }
+          
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            button.setText((value == null) ? "" : value.toString());
+            rowIndex = row;
+            return button;
+        }
+        
+        @Override
+        public Object getCellEditorValue() {
+            return button.getText();
+        }
+    }
+    
+    
+    
+    
     static class CheckBoxRendered extends JCheckBox implements TableCellRenderer{
         public CheckBoxRendered(){
             setOpaque(true);
@@ -91,6 +153,8 @@ public class ClassRendered {
                         model.removeRow(rowIndex);
                         DeleteTree delete = new DeleteTree();
                         delete.DeleteTree(rowIndex, list, nameFile);
+                        ListFlower flower = new ListFlower();
+                        
                     }
                 }
             });

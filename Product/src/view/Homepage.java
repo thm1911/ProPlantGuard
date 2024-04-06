@@ -7,7 +7,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import view.ListFlower;
 import Controller.SearchTree;
 import Model.Tree;
 import java.util.ArrayList;
@@ -18,13 +17,15 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 public class Homepage extends javax.swing.JFrame {
-    public int withLabel = 360;
+   public int withLabel = 360;
     public int heightLabel = 455;
     public Image searchImage1 = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\search-icon-2-614x460.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-    public Image searchImage2 = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\search-icon-2-614x460.png").getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+    public Image searchImage2 = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\search-icon-2-614x460.png").getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
     public Image exitImage = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\images.png").getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
     public Image notice = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\sign-warning-icon-png-7.png").getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     public Image deleteImage = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\1200px-Flat_cross_icon.svg.png").getImage().getScaledInstance(25, 25, Image.SCALE_SMOOTH);
+    public Image veget = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\135253.png").getImage().getScaledInstance(50,50, Image.SCALE_SMOOTH);
+    public Image location = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\istockphoto-1193451471-612x612-removebg-preview.png").getImage().getScaledInstance(100,100, Image.SCALE_SMOOTH);
     
     public String flowerFile = "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\FLOWER.txt";
     public String fruitFile = "C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\Data\\FRUIT.txt";
@@ -45,7 +46,7 @@ public class Homepage extends javax.swing.JFrame {
     public Homepage() {
         initComponents();
         Edit(homeItem, flowerItem, fruitItem, vegetableItem);
-        ImageIcon image = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\1306_game-nong-trai-2.jpg");
+        ImageIcon image = new ImageIcon("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image\\farm-story-game-nong-trai-vui-ve-01-01-2022-5.png");
         int width = labelBackground.getWidth();
         int height = labelBackground.getHeight();
         ImageIcon resizeImage = new ImageIcon(image.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
@@ -65,10 +66,8 @@ public class Homepage extends javax.swing.JFrame {
         OKButton = new javax.swing.JButton();
         noticeImage = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        labelBackground = new javax.swing.JLabel();
         searchMenu = new javax.swing.JPanel();
         searchBar = new javax.swing.JTextField();
-        searchButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -83,6 +82,11 @@ public class Homepage extends javax.swing.JFrame {
         keyWordButton = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        searchLabel = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        labelBackground = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         homeItem = new javax.swing.JMenuItem();
@@ -166,23 +170,18 @@ public class Homepage extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 102, 102));
         setIconImage(new ClassRendered().icon.getImage());
         setLocation(new java.awt.Point(0, 0));
+        setPreferredSize(new java.awt.Dimension(780, 455));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchMenu.setPreferredSize(new java.awt.Dimension(4, 455));
         searchMenu.setRequestFocusEnabled(false);
 
+        searchBar.setBackground(new java.awt.Color(255, 204, 204));
+        searchBar.setForeground(new java.awt.Color(0, 0, 0));
         searchBar.setToolTipText("");
-        searchBar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBarActionPerformed(evt);
-            }
-        });
-
-        searchButton.setIcon(new ImageIcon(searchImage2));
-        searchButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
-            }
-        });
+        searchBar.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        searchBar.setOpaque(true);
 
         exitButton.setIcon(new ImageIcon(exitImage));
         exitButton.setToolTipText("");
@@ -202,7 +201,7 @@ public class Homepage extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tên cây trồng", "Thông tin", "Thứ tự trong danh sách"
+                "Tên cây trồng", "Thông tin", "Id"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -216,6 +215,7 @@ public class Homepage extends javax.swing.JFrame {
         jScrollPane1.setViewportView(resultTable);
         if (resultTable.getColumnModel().getColumnCount() > 0) {
             resultTable.getColumnModel().getColumn(0).setResizable(false);
+            resultTable.getColumnModel().getColumn(1).setResizable(false);
             resultTable.getColumnModel().getColumn(2).setResizable(false);
         }
 
@@ -288,6 +288,13 @@ public class Homepage extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Nhập từ khóa tìm kiếm: ");
 
+        searchLabel.setIcon(new ImageIcon(searchImage2));
+        searchLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchLabelMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout searchMenuLayout = new javax.swing.GroupLayout(searchMenu);
         searchMenu.setLayout(searchMenuLayout);
         searchMenuLayout.setHorizontalGroup(
@@ -300,9 +307,8 @@ public class Homepage extends javax.swing.JFrame {
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(searchMenuLayout.createSequentialGroup()
                                 .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(searchMenuLayout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(searchMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,6 +325,10 @@ public class Homepage extends javax.swing.JFrame {
                                     .addComponent(jLabel2)))
                             .addComponent(jLabel4))))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         searchMenuLayout.setVerticalGroup(
             searchMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,17 +349,62 @@ public class Homepage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(searchMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGroup(searchMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(searchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
-        jMenu2.setText("View");
+        getContentPane().add(searchMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, 0, -1, 430));
 
+        jLabel7.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel7.setIcon(new ImageIcon(location));
+        jLabel7.setToolTipText("Khu cây ăn quả");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 60, 110, 100));
+
+        jLabel8.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel8.setIcon(new ImageIcon(location));
+        jLabel8.setToolTipText("Khu rau");
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 110, 100));
+
+        jLabel5.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel5.setIcon(new ImageIcon(location));
+        jLabel5.setToolTipText("Khu hoa");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, 110, 100));
+
+        labelBackground.setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(labelBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 430));
+
+        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuBar1.setOpaque(true);
+
+        jMenu2.setBackground(new java.awt.Color(204, 255, 204));
+        jMenu2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenu2.setForeground(new java.awt.Color(51, 51, 51));
+        jMenu2.setText("View");
+        jMenu2.setOpaque(true);
+
+        homeItem.setBackground(new java.awt.Color(255, 255, 255));
         homeItem.setText("Home");
+        homeItem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        homeItem.setOpaque(true);
         homeItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 homeItemActionPerformed(evt);
@@ -357,7 +412,10 @@ public class Homepage extends javax.swing.JFrame {
         });
         jMenu2.add(homeItem);
 
+        flowerItem.setBackground(new java.awt.Color(255, 255, 255));
         flowerItem.setText("Flower");
+        flowerItem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        flowerItem.setOpaque(true);
         flowerItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 flowerItemActionPerformed(evt);
@@ -365,7 +423,10 @@ public class Homepage extends javax.swing.JFrame {
         });
         jMenu2.add(flowerItem);
 
+        fruitItem.setBackground(new java.awt.Color(255, 255, 255));
         fruitItem.setText("Fruit");
+        fruitItem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        fruitItem.setOpaque(true);
         fruitItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fruitItemActionPerformed(evt);
@@ -373,7 +434,10 @@ public class Homepage extends javax.swing.JFrame {
         });
         jMenu2.add(fruitItem);
 
+        vegetableItem.setBackground(new java.awt.Color(255, 255, 255));
         vegetableItem.setText("Vegetable");
+        vegetableItem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        vegetableItem.setOpaque(true);
         vegetableItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vegetableItemActionPerformed(evt);
@@ -383,10 +447,17 @@ public class Homepage extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setBackground(new java.awt.Color(255, 204, 204));
+        jMenu3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenu3.setForeground(new java.awt.Color(51, 51, 51));
         jMenu3.setText("Search");
+        jMenu3.setOpaque(true);
 
+        searchItem.setBackground(new java.awt.Color(255, 255, 255));
         searchItem.setIcon(new ImageIcon(searchImage1));
         searchItem.setText("Tìm kiếm");
+        searchItem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        searchItem.setOpaque(true);
         searchItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchItemActionPerformed(evt);
@@ -397,21 +468,6 @@ public class Homepage extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(searchMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(searchMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-        );
 
         pack();
         setLocationRelativeTo(null);
@@ -442,6 +498,7 @@ public class Homepage extends javax.swing.JFrame {
             public void run() {
                 for(int i = 0; i <= withLabel; i++){
                     searchMenu.setSize(withLabel, heightLabel);
+                    searchMenu.setVisible(true);
                 }
             }
         }).start();
@@ -494,32 +551,38 @@ public class Homepage extends javax.swing.JFrame {
         column.setCellEditor(new ClassRendered.ButtonEditor(list, new JTextField(),nameFile));
         
     }
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        
-        if(flowerButton.isSelected()) PrintResult(flowerFile);
-        else if(fruitButon.isSelected()) PrintResult(fruitFile);
-        else if(vegetButton.isSelected()) PrintResult(vegetFile);
-        
-    }//GEN-LAST:event_searchButtonActionPerformed
-
     private void OKButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKButtonActionPerformed
         dialog1.setVisible(false);
     }//GEN-LAST:event_OKButtonActionPerformed
 
-    private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchBarActionPerformed
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        ListFlower flower = new ListFlower();
+        flower.showTable();
+        flower.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel5MouseClicked
 
-    public static void main(String args[]) {
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        ListVegetable veget = new ListVegetable();
+        veget.showTable();
+        veget.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel8MouseClicked
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+        ListFruit fruit = new ListFruit();
+        fruit.showTable();
+        fruit.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void searchLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchLabelMouseClicked
+         if(flowerButton.isSelected()) PrintResult(flowerFile);
+        else if(fruitButon.isSelected()) PrintResult(fruitFile);
+        else if(vegetButton.isSelected()) PrintResult(vegetFile);
         
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-               new Homepage().setVisible(true);
-            }
-        });
+    }//GEN-LAST:event_searchLabelMouseClicked
 
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton OKButton;
@@ -536,7 +599,10 @@ public class Homepage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
@@ -552,8 +618,8 @@ public class Homepage extends javax.swing.JFrame {
     public javax.swing.JLabel noticeLabel;
     public javax.swing.JTable resultTable;
     public javax.swing.JTextField searchBar;
-    private javax.swing.JButton searchButton;
     public javax.swing.JMenuItem searchItem;
+    public javax.swing.JLabel searchLabel;
     public javax.swing.JPanel searchMenu;
     public javax.swing.JRadioButton vegetButton;
     public javax.swing.JMenuItem vegetableItem;
