@@ -34,7 +34,8 @@ Các chức năng chính của ứng dụng:
 - Tra cứu cây trồng (Theo tên hoặc theo gợi ý về đặc điểm, công dụng, cách trồng).
 
 ## Requirements
-- Java 11
+- Java 21
+- JDK 21
 
 ## Installation
 ```
