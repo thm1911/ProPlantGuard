@@ -18,6 +18,14 @@ Linh video:
 ![alt text](image-4.png)
 ![alt text](image-5.png)
 
+## UML
+
+ClassDiagram
+![alt text](ClassDiagram1.jpg)
+
+ActivityDiagram
+![alt text](ActivityDiagram1.jpg)
+
 ## Features
 Các chức năng chính của ứng dụng: 
 - Xem thông tin chi tiết của từng loại cây trồng (Tên, Đặc điểm Hình ảnh, Cách trồng cây, Công dụng).

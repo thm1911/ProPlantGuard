@@ -39,9 +39,7 @@ public class ListFlower extends javax.swing.JFrame {
         home.Edit(homeItem, flowerItem, fruitItem, vegetableItem);
         EditAddTree();
     }
-    public void closeCurrentFrame() {
-        currentFrame.dispose(); 
-    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

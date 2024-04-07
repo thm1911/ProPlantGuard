@@ -123,56 +123,5 @@ public class ClassRendered {
             return button.getText();
         }
     }
-    
-    
-    
-    
-    static class CheckBoxRendered extends JCheckBox implements TableCellRenderer{
-        public CheckBoxRendered(){
-            setOpaque(true);
-        }
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-             setText((value == null) ? "" : value.toString());
-             return this;
-         }
-    }
-    
-    static class CheckBoxEditor extends DefaultCellEditor{
-        public JCheckBox checkBox;
-        public int rowIndex;
-        
-        public CheckBoxEditor(DefaultTableModel model, ArrayList<Tree> list,JTextField txt, String nameFile) {
-            super(txt);
-            checkBox = new JCheckBox();
-            checkBox.setSelected(false);
-            checkBox.addActionListener(new java.awt.event.ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (checkBox.isSelected() == true){
-                        model.removeRow(rowIndex);
-                        DeleteTree delete = new DeleteTree();
-                        delete.DeleteTree(rowIndex, list, nameFile);
-                        ListFlower flower = new ListFlower();
-                        
-                    }
-                }
-            });
-            
-        }
-          
-        @Override
-        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            checkBox.setText((value == null) ? "" : value.toString());
-            rowIndex = row;
-            return checkBox;
-        }
-        
-        @Override
-        public Object getCellEditorValue() {
-            return checkBox.getText();
-        }
-    }
-
-
+   
 }

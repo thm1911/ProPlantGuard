@@ -44,7 +44,7 @@ public class AddTree extends javax.swing.JFrame {
         imageLabel = new javax.swing.JLabel();
         doneLabel = new javax.swing.JLabel();
         exitLabel = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        getImageLabel = new javax.swing.JLabel();
 
         fileChoose.setCurrentDirectory(new java.io.File("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image"));
 
@@ -106,11 +106,11 @@ public class AddTree extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setIcon(new ImageIcon(cameraImage));
-        jLabel6.setOpaque(true);
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        getImageLabel.setIcon(new ImageIcon(cameraImage));
+        getImageLabel.setOpaque(true);
+        getImageLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
+                getImageLabelMouseClicked(evt);
             }
         });
 
@@ -144,7 +144,7 @@ public class AddTree extends javax.swing.JFrame {
                                     .addGap(18, 18, 18)
                                     .addComponent(jLabel4)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(getImageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING))))
                     .addGroup(layout.createSequentialGroup()
@@ -162,7 +162,7 @@ public class AddTree extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(getImageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -256,7 +256,7 @@ public class AddTree extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_exitLabelMouseClicked
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    private void getImageLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_getImageLabelMouseClicked
        JFileChooser fileChooser = new JFileChooser("C:\\Users\\thamb\\Java\\ProPlantGuard\\Product\\src\\Image");
         int returnValue = fileChooser.showOpenDialog(this);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
@@ -271,7 +271,7 @@ public class AddTree extends javax.swing.JFrame {
             ImageIcon imageResize = new ImageIcon(image.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
             imageLabel.setIcon(imageResize);
          }
-    }//GEN-LAST:event_jLabel6MouseClicked
+    }//GEN-LAST:event_getImageLabelMouseClicked
 
  
 
@@ -279,13 +279,13 @@ public class AddTree extends javax.swing.JFrame {
     public javax.swing.JLabel doneLabel;
     public javax.swing.JLabel exitLabel;
     public javax.swing.JFileChooser fileChoose;
+    private javax.swing.JLabel getImageLabel;
     public javax.swing.JLabel imageLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
